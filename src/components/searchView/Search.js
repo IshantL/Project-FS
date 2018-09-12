@@ -4,7 +4,7 @@ import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css'; 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
-
+import InputSearch from './inputSearch'
 import './search.css';
 
 class Search extends Component {
@@ -65,6 +65,8 @@ class Search extends Component {
         </ul>
 
         <form className="form" onSubmit={()=>this.handleSearch()}>
+
+          <InputSearch listName='apts' />
           <input 
             className="input block" 
             type="text" 
