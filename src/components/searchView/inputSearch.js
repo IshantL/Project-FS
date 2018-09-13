@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import Config from '../../Config';
+import Config from '../../Data/Config';
 import './inputSearch.css';
 
 

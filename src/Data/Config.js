@@ -69,6 +69,27 @@ var config = {
          "country":"China",
          "city":"Nanjing",
          "countryCode":"cn"
+      },
+      {
+         "code":"HYD",
+         "name":"HYDERABAD Airport",
+         "country":"India",
+         "city":"HYDERABAD",
+         "countryCode":"in"
+      },
+      {
+         "code":"DEL",
+         "name":"DELHI Airport",
+         "country":"India",
+         "city":"DELHI",
+         "countryCode":"in"
+      },
+      {
+         "code":"PNQ",
+         "name":"Pune Airport",
+         "country":"India",
+         "city":"PUNE",
+         "countryCode":"in"
       }
    ]
 };

@@ -5,6 +5,7 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import 'react-dates/lib/css/_datepicker.css';
 import InputSearch from './inputSearch'
 import './search.css';
+import moment from 'moment';
 
 class Search extends Component {
 
@@ -12,21 +13,38 @@ class Search extends Component {
 
   constructor(props) {
     super(props);
-    this.inputSearchClickHandler = this.inputSearchClickHandler.bind(this);
+    this.inputSearchClickHandlerOrigin = this.inputSearchClickHandlerOrigin.bind(this);
+    this.inputSearchClickHandlerDestination = this.inputSearchClickHandlerDestination.bind(this);
+    this.onSearchSubmit= this.onSearchSubmit.bind(this);
+
 
     this.state = {
+      originCity:'',
+      destinationCity:'',
+      startDate:moment(),
+      endDate:moment(),
+      date:moment(),
       returnTrip: true,
       passengers: 1,
       price: {
         min: 500,
         max: 5000,
-      },      
+      }      
     }
   }
+  onSearchSubmit(){
+    console.log(this.state);
+    this.props.callback(this.state);
 
-  inputSearchClickHandler (value){
-    console.log("value " + value);
   }
+
+  inputSearchClickHandlerOrigin (value){
+    this.setState({originCity:value})
+  }
+
+    inputSearchClickHandlerDestination (value){
+      this.setState({destinationCity:value})
+    }
 
   handleTrip(tab) {
     let returnTrip = (tab === 1) ? false : true;
@@ -41,7 +59,6 @@ class Search extends Component {
   }
 
   decrementPassengers() {
-    console.log("Decrement");
     if (this.state.passengers > 0) {
       this.setState({
         passengers: this.state.passengers - 1
@@ -51,10 +68,6 @@ class Search extends Component {
 
   handleSearch(event) {
     console.log("tabs");
-  }
-
-  refineSearch(price) {
-    //refine Search logic  
   }
 
   render() {
@@ -73,9 +86,9 @@ class Search extends Component {
         <div className="form" onSubmit={()=>this.handleSearch()}>
 
           Enter Origin City:<br />
-        <InputSearch id='is1' listName='apts' onClick={this.inputSearchClickHandler}/>          <br /> <br /> <br />
+        <InputSearch id='is1' listName='apts' onClick={this.inputSearchClickHandlerOrigin}/>          <br /> <br /> <br />
           Enter Destination City:<br />
-        <InputSearch id='is2' listName='apts' onClick={this.inputSearchClickHandler}/>
+        <InputSearch id='is2' listName='apts' onClick={this.inputSearchClickHandlerDestination}/>
             <br />
           
           {this.state.returnTrip ||
@@ -83,7 +96,7 @@ class Search extends Component {
             <label className="block">Departure date</label>   
              <SingleDatePicker
           date={this.state.date} // momentPropTypes.momentObj or null
-          onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
+          onDateChange={date => this.setState({ date:moment(date) })} // PropTypes.func.isRequired
           focused={this.state.focused} // PropTypes.bool
           onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
           id="your_unique_id" // PropTypes.string.isRequired,
@@ -100,7 +113,7 @@ class Search extends Component {
           startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
           endDate={this.state.endDate} // momentPropTypes.momentObj or null,
           endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-          onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+          onDatesChange={({ startDate, endDate }) => this.setState({ startDate:moment(startDate), endDate:moment(endDate) })} // PropTypes.func.isRequired,
           focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
           />           
@@ -139,10 +152,9 @@ class Search extends Component {
             onChangeComplete={price => console.log(price)} />
           
             
-          <button className="form__submit" type="submit">Search</button>
+          <button className="form__submit" type="submit" onClick={this.onSearchSubmit}>Search</button>
           
         </div>
-
       </div>
     )
   }
