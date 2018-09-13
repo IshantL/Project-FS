@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './flights.css';
 import moment from 'moment';
+import FlightData from '../../Data/flights-json'
 
 
 class FlightDetails extends Component {
@@ -28,12 +29,28 @@ class FlightDetails extends Component {
     
       if(this.props.FlightData!==undefined){
         let flight = this.props.FlightData;
-    flight.depart_time = moment(this.props.FlightData.depart_date).format("hh:mm A");
-    flight.arrive_time = moment(this.props.FlightData.arrive_date).format("hh:mm A");
+      flight.depart_time = moment(this.props.FlightData.depart_date).format("hh:mm A");
+      flight.arrive_time = moment(this.props.FlightData.arrive_date).format("hh:mm A");
+      flight.date=moment(this.props.FlightData.depart_date).format("D M YYYY");
+      let returnTrip={};
+      if(this.state.isReturnTrip){
+        debugger;
+          FlightData.map((allFlight)=> {
+               if((flight.to_code===allFlight.from_code) &&(flight.from_code===allFlight.to_code)
+                && (moment(flight.endDate._d).format("D M YYYY") === moment(allFlight.arrive_date).format("D M YYYY")))
+              {
+              returnTrip.depart_time = moment(allFlight.depart_date).format("hh:mm A");
+              returnTrip.arrive_time = moment(allFlight.arrive_date).format("hh:mm A"); 
+              returnTrip.number=allFlight.number;
+              returnTrip.from_code=allFlight.from_code;
+              returnTrip.to_code=allFlight.to_code;
+              returnTrip.price=allFlight.price;
+              returnTrip.date=moment(allFlight.depart_date).format("D M YYYY");
 
-    /*let returnTrip = flight.return_trip;
-    returnTrip.depart_time = moment(returnTrip.depart_date).format("hh:mm A");
-    returnTrip.arrive_time = moment(returnTrip.arrive_date).format("hh:mm A");   */ 
+              }
+            });
+            }
+   
     return (
 
       <div className="flight" ref="flightRef">
@@ -44,16 +61,19 @@ class FlightDetails extends Component {
             <div className="flight__departure">
               <p className="flight__number">{this.props.FlightData.number.toUpperCase()}</p>
               <p className="flight__codes">{this.props.FlightData.from_code} &raquo; {this.props.FlightData.to_code}</p>
+              <p className="flight__depart__time">Date: {flight.date}</p>
               <p className="flight__depart__time">Depart: {flight.depart_time}</p>
               <p className="flight__arrive__time">Arrive: {flight.arrive_time}</p>
             </div>
              { 
               this.state.isReturnTrip &&
               <div className="flight__return">
-                <p className="flight__number">aa</p>
-                <p className="flight__codes">vv</p>
-                <p className="flight__depart__time">dd</p>
-                <p className="flight__arrive__time">ff</p>
+                <h3 className="flight__number">₹ {returnTrip.price}</h3>
+                <p className="flight__number">{returnTrip.number.toUpperCase()}</p>
+                <p className="flight__codes">{returnTrip.from_code} &raquo; {returnTrip.to_code}</p>
+                <p className="flight__depart__time">Date: {returnTrip.date}</p>
+                <p className="flight__depart__time">Depart: {returnTrip.depart_time}</p>
+                <p className="flight__arrive__time">Arrive: {returnTrip.arrive_time}</p>
               </div>
             }
             

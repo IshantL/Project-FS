@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import FlightDetails from './Flight-details';
-import FightData from '../../Data/flights-json'
+import FlightData from '../../Data/flights-json'
 import './flights.css';
 
 class FlightsResult extends Component {
@@ -11,9 +11,9 @@ class FlightsResult extends Component {
 
     this.state = {
       isReturnTrip: true,
-      flights:FightData ,
+      flights:FlightData ,
       searchData:'',
-      filteredFlights:[]
+      returnFlight:''
     };
     this.checkFlightAvailability=this.checkFlightAvailability.bind(this);
   }
@@ -27,12 +27,11 @@ class FlightsResult extends Component {
     debugger;
     let result=this.state.searchData;
 
-
-
        if((result.originCity===flight.from_code) &&(result.destinationCity===flight.to_code)){ 
       if(result.returnTrip){
         if((moment(result.startDate._d).format("D M YYYY") === moment(flight.arrive_date).format("D M YYYY"))){
           flight.returnTrip=true;
+          flight.endDate=result.endDate;
            return flight
         }
       }
