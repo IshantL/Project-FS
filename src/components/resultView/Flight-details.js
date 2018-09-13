@@ -8,17 +8,21 @@ class FlightDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isReturnTrip: true,
+      isReturnTrip: false,
       bookingText: 'Book this flight'
     }
   }
 
-  componentDidMount() {
-  }  
-
-  componentWillUnmount() {
-  }
-
+  componentWillReceiveProps (nextProps){
+    debugger;
+      if(nextProps.FlightData!==undefined){
+          if(nextProps.FlightData.returnTrip){
+            this.setState({isReturnTrip:nextProps.FlightData.returnTrip});
+          }else{
+            this.setState({isReturnTrip:nextProps.FlightData.returnTrip});            
+          }  
+        }
+      }
   render() {
     debugger;
     
@@ -27,9 +31,9 @@ class FlightDetails extends Component {
     flight.depart_time = moment(this.props.FlightData.depart_date).format("hh:mm A");
     flight.arrive_time = moment(this.props.FlightData.arrive_date).format("hh:mm A");
 
-   /* let returnTrip = flight.return_trip;
+    /*let returnTrip = flight.return_trip;
     returnTrip.depart_time = moment(returnTrip.depart_date).format("hh:mm A");
-    returnTrip.arrive_time = moment(returnTrip.arrive_date).format("hh:mm A");    */
+    returnTrip.arrive_time = moment(returnTrip.arrive_date).format("hh:mm A");   */ 
     return (
 
       <div className="flight" ref="flightRef">
@@ -43,7 +47,15 @@ class FlightDetails extends Component {
               <p className="flight__depart__time">Depart: {flight.depart_time}</p>
               <p className="flight__arrive__time">Arrive: {flight.arrive_time}</p>
             </div>
-
+             { 
+              this.state.isReturnTrip &&
+              <div className="flight__return">
+                <p className="flight__number">aa</p>
+                <p className="flight__codes">vv</p>
+                <p className="flight__depart__time">dd</p>
+                <p className="flight__arrive__time">ff</p>
+              </div>
+            }
             
           </div>
 

@@ -26,17 +26,25 @@ class FlightsResult extends Component {
   checkFlightAvailability(flight) {
     debugger;
     let result=this.state.searchData;
-    if((result.originCity===flight.from_code) &&(result.destinationCity===flight.to_code) &&
-        (moment(result.date._d).format("D M YYYY") === moment(flight.arrive_date).format("D M YYYY"))
-      ){ 
+
+
+
+       if((result.originCity===flight.from_code) &&(result.destinationCity===flight.to_code)){ 
       if(result.returnTrip){
-        flight.returnTrip=true;
-        return flight
-      }else{
-         flight.returnTrip=false;
-        return flight
+        if((moment(result.startDate._d).format("D M YYYY") === moment(flight.arrive_date).format("D M YYYY"))){
+          flight.returnTrip=true;
+           return flight
+        }
+      }
+    
+      else{
+        if((moment(result.date._d).format("D M YYYY") === moment(flight.arrive_date).format("D M YYYY"))){
+          flight.returnTrip=false;
+           return flight
+        }
+        }
       }    
-    }
+
   }
 
   render() {
