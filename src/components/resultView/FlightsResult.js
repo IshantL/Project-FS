@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-
-// import json
-import FLIGHTS from '../../Data/flights-json'
+import FLIGHTS from '../../Data/flights-json';
 import FlightDetails from './Flight-details';
+import FightData from '../../Data/flights-json'
 import './flights.css';
 
 class FlightsResult extends Component {
@@ -13,21 +12,18 @@ class FlightsResult extends Component {
 
     this.state = {
       isReturnTrip: true,
-      flights: [],
+      flights:FightData ,
       searchString: []
     };
   }
 
   componentWillMount() {
-    const flights = FLIGHTS;
-    this.setState({flights});
   }  
 
   componentDidMount() {
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
   }
 
   checkFlightAvailability(flight) {
@@ -66,63 +62,29 @@ class FlightsResult extends Component {
   }
 
   render() {
-    let flights = this.state.flights.filter((flight) => {
+    debugger;
+      let flightList = this.state.flights.map((flight) => {
+      return <FlightDetails FlightData={flight}></FlightDetails>
+      });
+
+      let flights = this.state.flights.filter((flight) => {
       flight.depart_date = moment(flight.depart_date);
       flight.return_trip.depart_date = moment(flight.return_trip.depart_date);
       return this.checkFlightAvailability(flight);
-    })
-    
-    let flightList = flights.map((flight) => {
-      return ;
-    });
+    })    
 
-    let flightDetails = flights[0];
+    /*let flightDetails = flights[0];
     if (flightDetails) {
       flightDetails = {
         ...flightDetails,
         depart_day: moment(flightDetails.depart_date).format("Do MMM YYYY"),
         return_day: moment(flightDetails.return_trip.depart_date).format("Do MMM YYYY")
       };    
-    }
+    }*/
 
     return (
-      <section className="flights">
-        {flightList.length > 0 &&
-          <div className="flights__details"> 
-            <div>
-              { this.state.searchString.price &&
-                <h1>
-                  <span>{flightDetails.from}</span> &raquo; 
-                  <span> {flightDetails.to} </span> 
-                  { 
-                    this.state.isReturnTrip &&
-                    <span> &raquo; {flightDetails.from}</span>
-                  }
-                </h1>
-              }
-
-              { !this.state.searchString.price && 
-                <h1>All Flights</h1>
-              }
-
-            </div>
-
-            <div className="flight--timings">
-              <span>Departure: {flightDetails.depart_day}</span>
-              { 
-                this.state.isReturnTrip &&              
-                <span>Return: {flightDetails.return_day}</span>
-              }
-            </div>
-          </div>
-        }
-
-        {
-          flightList.length <= 0 && 
-          <div>Sorry, No flights for your selection. Please refine your search!</div>
-        }
-
-        <div className="flight__container">
+        <section className="flights">
+       <div className="flight__container">
           {flightList}
         </div>
       </section>

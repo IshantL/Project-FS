@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css'; 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
@@ -9,8 +8,11 @@ import './search.css';
 
 class Search extends Component {
 
+
+
   constructor(props) {
     super(props);
+    this.inputSearchClickHandler = this.inputSearchClickHandler.bind(this);
 
     this.state = {
       returnTrip: true,
@@ -20,6 +22,10 @@ class Search extends Component {
         max: 5000,
       },      
     }
+  }
+
+  inputSearchClickHandler (value){
+    console.log("value " + value);
   }
 
   handleTrip(tab) {
@@ -64,27 +70,13 @@ class Search extends Component {
             onClick={()=>this.handleTrip(2)}>Return</li>
         </ul>
 
-        <form className="form" onSubmit={()=>this.handleSearch()}>
+        <div className="form" onSubmit={()=>this.handleSearch()}>
 
-          <InputSearch listName='apts' />
-          <input 
-            className="input block" 
-            type="text" 
-            placeholder="Enter Origin City"
-            ref={node => {
-              this.originCity = node;
-            }} />          
-
-          <input 
-            className="input block" 
-            type="text" 
-            placeholder="Enter Destination City"
-            ref={node => {
-              this.destinationCity = node;
-            }} />
-
+          Enter Origin City:<br />
+        <InputSearch id='is1' listName='apts' onClick={this.inputSearchClickHandler}/>          <br /> <br /> <br />
+          Enter Destination City:<br />
+        <InputSearch id='is2' listName='apts' onClick={this.inputSearchClickHandler}/>
             <br />
-
           
           {this.state.returnTrip ||
             <div>
@@ -149,7 +141,7 @@ class Search extends Component {
             
           <button className="form__submit" type="submit">Search</button>
           
-        </form>
+        </div>
 
       </div>
     )

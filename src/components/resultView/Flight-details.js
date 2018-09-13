@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import './flights.css'
 
 class FlightDetails extends Component {
@@ -21,7 +20,10 @@ class FlightDetails extends Component {
   render() {
   
     return (
-      <div></div>
+      <div>
+        Display block data::::
+        {this.props.FlightData.airline}
+      </div>
       );
  }
 }

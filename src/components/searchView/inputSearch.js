@@ -9,13 +9,25 @@ class InputSearch extends Component{
     super(props);
     this.clickHandler = this.clickHandler.bind(this);
     this.fetchData = this.fetchData.bind(this);
+    this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
+
+    this.toggleContainer = React.createRef();
     this.state = {
-      searchedItems: []
+      searchedItems: [],
+      inputValue: '',
+      isOpen: false
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('click', this.onClickOutsideHandler);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.onClickOutsideHandler);
+  }
+
   fetchData (value) {
-    //console.log("message ", value);
     //Simplify to show data
     const list = Config[this.props.listName];
     let filterItems = list.filter((item) => {
@@ -40,21 +52,42 @@ class InputSearch extends Component{
         searchedItems: []
       });
     }
+    this.setState(currentState => ({
+      isOpen: !currentState.isOpen
+    }));
+  }
+
+  selectClickHandler (selectedValue, name){
+    let elementId = document.getElementById(this.props.id);
+    let elementName = document.getElementsByName(this.props.id);
+    elementId.value = name;
+    elementName.value = selectedValue;
+    this.setState(currentState => ({
+      isOpen: !currentState.isOpen
+    }));
+    this.props.onClick(selectedValue);
+  }
+
+  onClickOutsideHandler(event) {
+    if (this.state.isOpen && !this.toggleContainer.current.contains(event.target)) {
+      this.setState({ isOpen: false });
+    }
   }
 
   render (){
     return(
       <div className='ui-input-search'>
-        <input type='text' placeholder='Type atleast 3 letters' onChange={this.clickHandler}></input>
-        <div className='ui-input-search-item'>
+        <input type='text' id={this.props.id} placeholder='Type atleast 3 letters' onChange={this.clickHandler}></input>
+        <input type='hidden' name={this.props.id}/>
+        {this.state.isOpen ? <div ref={this.toggleContainer} className='ui-input-search-item'>
           <ul className="list-group">
             {this.state.searchedItems.map((item, key) => (
-              <li key={key} className="list-group-item" value={item.code}>
+              <li onClick={() => this.selectClickHandler(item.code, item.name)} key={key} className="list-group-item" value={item.code}>
               {item.name}-{item.country}[{item.code}]
               </li>
             ))}
           </ul>
-        </div>
+        </div> : null}
       </div>
     );
   }
