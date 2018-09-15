@@ -25,7 +25,7 @@ html {
 }
 
 @media only screen 
-  and (min-device-width: 320px) 
+  and (min-device-width: 250px) 
   and (max-device-width: 480px) {
   .app__content {
     display: block;

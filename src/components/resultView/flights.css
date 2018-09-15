@@ -46,7 +46,7 @@
 }
 
 .flight__logo .airline {
-  width: 160px;
+  width:98%;
   height: 95px; 
   border: 2px solid;
   border-radius: 5px;
@@ -76,8 +76,10 @@
   border: 2px solid;
 }
 
+/* For mobile phones: */
+
 @media only screen 
-  and (min-device-width: 320px) 
+  and (min-device-width: 250px) 
   and (max-device-width: 480px) {
   .flights {
     width: calc(98% - 30px);
