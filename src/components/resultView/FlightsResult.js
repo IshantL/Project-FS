@@ -27,7 +27,7 @@ class FlightsResult extends Component {
     debugger;
     let result=this.state.searchData;
 
-       if((result.originCity===flight.from_code) &&(result.destinationCity===flight.to_code)){ 
+       if((result.originCity===flight.from_code) &&(result.destinationCity===flight.to_code) && ((result.price.min<=flight.price)&&(flight.price<=result.price.max))){ 
       if(result.returnTrip){
         if((moment(result.startDate._d).format("D M YYYY") === moment(flight.arrive_date).format("D M YYYY"))){
           flight.returnTrip=true;

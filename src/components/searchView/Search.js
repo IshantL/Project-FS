@@ -46,7 +46,7 @@ class Search extends Component {
       this.setState({destinationCity:value})
     }
 
-  handleTrip(tab) {
+  tabSwitch(tab) {
     let returnTrip = (tab === 1) ? false : true;
     this.setState({returnTrip});
   }
@@ -77,10 +77,10 @@ class Search extends Component {
 
         <ul className="tabs">
           <li className={"tab" + (this.state.returnTrip ? '' : ' active')}
-            onClick={()=>this.handleTrip(1)}>One way</li>
+            onClick={()=>this.tabSwitch(1)}>One way</li>
 
           <li className={"tab" + (this.state.returnTrip ? ' active' : '')}
-            onClick={()=>this.handleTrip(2)}>Return</li>
+            onClick={()=>this.tabSwitch(2)}>Return</li>
         </ul>
 
         <div className="form" onSubmit={()=>this.handleSearch()}>
@@ -94,7 +94,7 @@ class Search extends Component {
           {this.state.returnTrip ||
             <div>
             <label className="block">Departure date</label>   
-             <SingleDatePicker
+             <SingleDatePicker className="DateRangePicker"
           date={this.state.date} // momentPropTypes.momentObj or null
           onDateChange={date => this.setState({ date:moment(date) })} // PropTypes.func.isRequired
           focused={this.state.focused} // PropTypes.bool
@@ -108,7 +108,7 @@ class Search extends Component {
           {this.state.returnTrip &&
           <div>
             <label className="block">Departure date > Return date</label>  
-            <DateRangePicker
+            <DateRangePicker className="DateRangePicker"
           startDate={this.state.startDate} // momentPropTypes.momentObj or null,
           startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
           endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -146,7 +146,7 @@ class Search extends Component {
             className="price--range"
             maxValue={10000}
             minValue={0}
-            formatLabel={price => `₹ ${price}`}
+            formatLabel={price => `${price}`}
             value={this.state.price}
             onChange={price => this.setState({price})}
             onChangeComplete={price => console.log(price)} />

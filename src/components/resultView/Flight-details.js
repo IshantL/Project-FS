@@ -55,10 +55,10 @@ class FlightDetails extends Component {
 
       <div className="flight" ref="flightRef">
         <div className="flight__details">
-          <h3 className="flight__price">₹ {this.props.FlightData.price}</h3>
 
           <div className="flight__timings">
-            <div className="flight__departure">
+              <div className="flight__departure">
+              <h3 className="flight__number">₹ {this.props.FlightData.price}</h3>
               <p className="flight__number">{this.props.FlightData.number.toUpperCase()}</p>
               <p className="flight__codes">{this.props.FlightData.from_code} &raquo; {this.props.FlightData.to_code}</p>
               <p className="flight__depart__time">Date: {flight.date}</p>
