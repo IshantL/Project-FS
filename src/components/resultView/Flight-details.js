@@ -15,7 +15,6 @@ class FlightDetails extends Component {
   }
 
   componentWillReceiveProps (nextProps){
-    debugger;
       if(nextProps.FlightData!==undefined){
           if(nextProps.FlightData.returnTrip){
             this.setState({isReturnTrip:nextProps.FlightData.returnTrip});
@@ -24,9 +23,7 @@ class FlightDetails extends Component {
           }  
         }
       }
-  render() {
-    debugger;
-    
+  render() {    
       if(this.props.FlightData!==undefined){
         let flight = this.props.FlightData;
       flight.depart_time = moment(this.props.FlightData.depart_date).format("hh:mm A");
@@ -34,7 +31,6 @@ class FlightDetails extends Component {
       flight.date=moment(this.props.FlightData.depart_date).format("D M YYYY");
       let returnTrip={};
       if(this.state.isReturnTrip){
-        debugger;
           FlightData.map((allFlight)=> {
                if((flight.to_code===allFlight.from_code) &&(flight.from_code===allFlight.to_code)
                 && (moment(flight.endDate._d).format("D M YYYY") === moment(allFlight.arrive_date).format("D M YYYY")))
@@ -46,16 +42,14 @@ class FlightDetails extends Component {
               returnTrip.to_code=allFlight.to_code;
               returnTrip.price=allFlight.price;
               returnTrip.date=moment(allFlight.depart_date).format("D M YYYY");
-
               }
+              return null;
             });
             }
    
     return (
-
       <div className="flight" ref="flightRef">
         <div className="flight__details">
-
           <div className="flight__timings">
               <div className="flight__departure">
               <h3 className="flight__number">₹ {this.props.FlightData.price}</h3>
@@ -75,12 +69,9 @@ class FlightDetails extends Component {
                 <p className="flight__depart__time">Depart: {returnTrip.depart_time}</p>
                 <p className="flight__arrive__time">Arrive: {returnTrip.arrive_time}</p>
               </div>
-            }
-            
+            }          
           </div>
-
         </div>
-
         <div className="flight__logo">
           <div className={`airline ${this.props.FlightData.airline_code}`}></div>
           <button 
@@ -90,7 +81,6 @@ class FlightDetails extends Component {
           </button>
         </div>
       </div>    
-
       );
     }else{
       return(<span></span>
