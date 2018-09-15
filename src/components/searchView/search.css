@@ -89,5 +89,6 @@
   border: 2px solid;
 }
 .DateRangePicker{
-border: 2px solid #152b93;
+border: 1px solid #152b93;
+display: block;
 }

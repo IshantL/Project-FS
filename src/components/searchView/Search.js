@@ -93,14 +93,17 @@ class Search extends Component {
           
           {this.state.returnTrip ||
             <div>
-            <label className="block">Departure date</label>   
-             <SingleDatePicker className="DateRangePicker"
+            <label className="block">Departure date</label>  
+                      <div className="DateRangePicker">
+ 
+             <SingleDatePicker 
           date={this.state.date} // momentPropTypes.momentObj or null
           onDateChange={date => this.setState({ date:moment(date) })} // PropTypes.func.isRequired
           focused={this.state.focused} // PropTypes.bool
           onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
           id="your_unique_id" // PropTypes.string.isRequired,
-          />         
+          /> 
+          </div>        
           </div>        
         }
           <br />          
@@ -108,7 +111,8 @@ class Search extends Component {
           {this.state.returnTrip &&
           <div>
             <label className="block">Departure date > Return date</label>  
-            <DateRangePicker className="DateRangePicker"
+          <div className="DateRangePicker">
+          <DateRangePicker 
           startDate={this.state.startDate} // momentPropTypes.momentObj or null,
           startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
           endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -116,7 +120,8 @@ class Search extends Component {
           onDatesChange={({ startDate, endDate }) => this.setState({ startDate:moment(startDate), endDate:moment(endDate) })} // PropTypes.func.isRequired,
           focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-          />           
+          /> 
+          </div>          
           </div>
           }
 

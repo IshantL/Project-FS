@@ -21,7 +21,7 @@ const FLIGHTS = [{
       "to_code": "DEL",
       "depart_date": "Sun Sep 23 2018 15:03:07 GMT+0530 (IST)",
       "arrive_date": "Sun Sep 23 2018 17:03:07 GMT+0530 (IST)",
-      "price": 5100
+      "price": 4900
       },{
       "id": 3,
       "airline_code": "indigo",
@@ -33,7 +33,7 @@ const FLIGHTS = [{
       "to_code": "PNQ",
       "depart_date": "Mon Sep 24 2018 10:03:07 GMT+0530 (IST)",
       "arrive_date": "Mon Sep 24 2018 12:03:07 GMT+0530 (IST)",
-      "price": 500  
+      "price": 1500  
       },{
       "id": 4,
       "airline_code": "indigo",
@@ -45,7 +45,7 @@ const FLIGHTS = [{
       "to_code": "HYD",
       "depart_date": "Tue Sep 25 2018 09:03:07 GMT+0530 (IST)",
       "arrive_date": "Tue Sep 25 2018 11:03:07 GMT+0530 (IST)",
-      "price": 1500        
+      "price": 1800        
       },{
       "id": 5,
       "airline_code": "ai",
@@ -69,7 +69,7 @@ const FLIGHTS = [{
       "to_code": "PNQ",
       "depart_date": "Fri Sep 27 2018 10:03:07 GMT+0530 (IST)",
       "arrive_date": "Fri Sep 27 2018 12:03:07 GMT+0530 (IST)",
-      "price": 500  
+      "price": 1600  
       }, {
       "id": 7,
       "airline_code": "indigo",

@@ -74,6 +74,8 @@
   border-radius: 5px;
   background: #b9e9e7;
   border: 2px solid;
+  cursor: pointer;
+
 }
 
 /* For mobile phones: */
